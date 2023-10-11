@@ -2,6 +2,7 @@
 using HarmonyLib;
 using System;
 using BepInEx.Logging;
+using BepInEx.Configuration;
 
 namespace BetterToilet
 {
@@ -10,10 +11,23 @@ namespace BetterToilet
     public class Plugin : BaseUnityPlugin
     {
         public static Plugin Instance;
+        public ConfigEntry<bool> OpenToiletsUsedWhileWanted;
         private ToiletController _toiletController;
+
+        public ManualLogSource GetLogger()
+        {
+            return Logger;
+        }
+
         private void Awake()
         {
+            OpenToiletsUsedWhileWanted = Config.Bind("General",
+                "OpenToiletsUsedWhileWanted",
+                false,
+                "Whether to also keep toilets that were used with a heat level open.");
+
             Instance = this;
+
             try
             {
                 Harmony harmony = new Harmony("org.lazyduchess.plugins.brc.bettertoilet");
@@ -30,11 +44,6 @@ namespace BetterToilet
         private void Update()
         {
             _toiletController.Update();
-        }
-
-        public ManualLogSource GetLogger()
-        {
-            return Logger;
         }
     }
 }
