@@ -1,8 +1,6 @@
 ﻿using BepInEx;
 using HarmonyLib;
 using System;
-using Reptile;
-using System.Reflection;
 using BepInEx.Logging;
 
 namespace BetterToilet
