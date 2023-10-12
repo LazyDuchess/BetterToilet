@@ -6,7 +6,7 @@ using BepInEx.Configuration;
 
 namespace BetterToilet
 {
-    [BepInPlugin("org.lazyduchess.plugins.brc.bettertoilet", "Better Toilet", "1.0.0.0")]
+    [BepInPlugin("org.lazyduchess.plugins.brc.bettertoilet", "Better Toilet", "1.0.1.0")]
     [BepInProcess("Bomb Rush Cyberfunk.exe")]
     public class Plugin : BaseUnityPlugin
     {

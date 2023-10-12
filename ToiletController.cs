@@ -8,7 +8,8 @@ namespace BetterToilet
     public class ToiletController
     {
         public static ToiletController Instance;
-        private const float DistanceToOpenToilets = 2f;
+        private const float HorizontalDistanceToOpenToilets = 2f;
+        private const float VerticalDistanceToOpenToilets = 5f;
         // If we're too close to a toilet when it opens we'll be forced into it, creating an infinite toilet entering loop.
         private HashSet<PublicToilet> _toiletsToOpenOncePlayerIsFarAwayEnough = new HashSet<PublicToilet>();
 
@@ -51,8 +52,9 @@ namespace BetterToilet
                     _toiletsToOpenOncePlayerIsFarAwayEnough.Remove(toilet);
                     continue;
                 }
-                var distanceToPlayer = Vector3.Distance(toilet.transform.position, player.transform.position);
-                if (distanceToPlayer >= DistanceToOpenToilets)
+                var verticalDistance = Mathf.Abs((toilet.transform.position.y - player.transform.position.y));
+                var horizontalDistance = Vector3.Distance(new Vector3(toilet.transform.position.x, player.transform.position.y, toilet.transform.position.z), player.transform.position);
+                if (horizontalDistance >= HorizontalDistanceToOpenToilets || verticalDistance >= VerticalDistanceToOpenToilets)
                 {
                     //Plugin.Instance.GetLogger().LogInfo($"Opened toilet, distance: {distanceToPlayer}");
                     OpenToilet(toilet);
